@@ -1,6 +1,7 @@
 'use strict';
 import 'dotenv/config'
 import Hapi from '@hapi/hapi'
+import userRoutes from './routes/user.routes.js';
 
 const init = async () => {
 
@@ -16,10 +17,12 @@ const init = async () => {
             return 'Hello World!';
         }
     });
+
+    await server.register([
+        userRoutes, // ⬅️ This loads /register route from your plugin
+    ]);
     await server.start();
     console.log('Server running on %s', server.info.uri);
-    console.log(sequelize);
-    
 };
 
 process.on('unhandledRejection', (err) => {
