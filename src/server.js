@@ -2,25 +2,20 @@
 import 'dotenv/config'
 import Hapi from '@hapi/hapi'
 import userRoutes from './routes/user.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const init = async () => {
-
+    //creating server
     const server = Hapi.server({
         port: process.env.PORT,
         host: 'localhost'
     });
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, h) => {
-
-            return 'Hello World!';
-        }
-    });
-
+    //adding routes
     await server.register([
-        userRoutes, // ⬅️ This loads /register route from your plugin
+        userRoutes,
+        authRoutes
     ]);
+    //starting server
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
