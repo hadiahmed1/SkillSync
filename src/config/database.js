@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize(process.env.DB_URI)
+const sequelize = new Sequelize(process.env.DB_URI)
 
-export default db;
+export { sequelize };
