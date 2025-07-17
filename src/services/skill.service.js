@@ -2,9 +2,9 @@ import db from '../models/index.js';
 import Boom from '@hapi/boom'
 import { getUserByID } from './user.service.js';
 
-export const getSkillByID = async (id)=>{
+export const getSkillByID = async (id) => {
     const skill = await db.Skill.findByPk(id);
-    if(skill) return skill;
+    if (skill) return skill;
     throw Boom.notFound("Invalid skill ID")
 }
 
@@ -20,8 +20,21 @@ export const createSkill = async (name) => {
 export const createUserSkill = async (userId, skillId) => {
     const existingUserSkill = await db.UserSkill.findOne({ where: { userId, skillId } });
     if (existingUserSkill) throw Boom.conflict("User already has this skill");
-    
+
     const user = await getUserByID(userId);
     const skill = await getSkillByID(skillId);
     user.addSkill(skill);
+}
+
+export const findAllSkills = async () => await db.Skill.findAll();
+
+export const findUserSkills = async (id) => {
+    const user = await db.User.findByPk(id, {
+        include: {
+            model: db.Skill,
+            through: { attributes: [] },
+        }
+    })
+
+    return user.Skills;
 }
