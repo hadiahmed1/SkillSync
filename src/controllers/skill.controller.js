@@ -7,7 +7,7 @@ export const addSkill = handleAsync(async (request, h) => {
 
   return h.response({
     message: 'Skill created successfully',
-    skill, addUserSkill
+    skill
   }).code(201);
 });
 
