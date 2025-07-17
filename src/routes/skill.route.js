@@ -1,4 +1,5 @@
 import { addSkill, addUserSkill, deleteUserSkill, getMySkills, getSkills } from "../controllers/skill.controller.js";
+import { createSkillSchena } from "../validations/skill.validation.js";
 
 export default {
     name: 'skillRoutes',
@@ -9,7 +10,7 @@ export default {
                 path: '/skill',
                 options: {
                     validate: {
-                        // payload: registerSchema,
+                        payload: createSkillSchena,
                         failAction: (request, h, err) => {
                             throw err;
                         },
@@ -35,12 +36,6 @@ export default {
                 path: '/skill/{skillId}',
                 options: {
                     auth: 'jwt',
-                    validate: {
-                        // payload: registerSchema,
-                        failAction: (request, h, err) => {
-                            throw err;
-                        },
-                    },
                 },
                 handler: addUserSkill,
             },
@@ -49,12 +44,6 @@ export default {
                 path: '/skill/{skillId}',
                 options: {
                     auth: 'jwt',
-                    validate: {
-                        // payload: registerSchema,
-                        failAction: (request, h, err) => {
-                            throw err;
-                        },
-                    },
                 },
                 handler: deleteUserSkill,
             },
