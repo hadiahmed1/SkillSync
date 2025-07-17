@@ -1,9 +1,16 @@
 import bcrypt from 'bcrypt';
 import db from '../models/index.js';
+import Boom from '@hapi/boom'
 
 export const getUserByEmail = async (email) => {
     const user = await db.User.findOne({ where: { email } });
     return user;
+}
+
+export const getUserByID = async (id)=>{
+    const user = await db.User.findByPk(id);
+    if(user) return user;
+    throw Boom.notFound("Invalid user ID")
 }
 
 export const createUser = async (payload) => {
