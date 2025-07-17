@@ -8,6 +8,7 @@ export const registerUser = async (request, h) => {
       user,
     }).code(201);
   } catch (err) {
+    if(err.isBoom) throw err;
     return h.response({
       statusCode: 400,
       error: 'Bad Request',
