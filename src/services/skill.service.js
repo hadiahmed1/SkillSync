@@ -33,7 +33,7 @@ export const getUserSkillByIds = async (userId, skillId) => await db.UserSkill.f
 
 
 export const createUserSkill = async (userId, skillId) => {
-    const existingUserSkill = getUserSkillByIds(userId, skillId);
+    const existingUserSkill = await getUserSkillByIds(userId, skillId);
     if (existingUserSkill) throw Boom.conflict("User already has this skill");
 
     const user = await getUserByID(userId);
