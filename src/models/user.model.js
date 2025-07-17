@@ -3,7 +3,7 @@ import { Model, DataTypes } from 'sequelize';
 export default class User extends Model {
   static associate(models) {
     this.belongsToMany(models.Skill, {
-      through: 'UserSkills',
+      through: models.UserSkill,
       foreignKey: 'userId',
     });
 
