@@ -1,10 +1,10 @@
-import { addSkill, addUserSkill, getMySkills, getSkills } from "../controllers/skill.controller.js";
+import { addSkill, addUserSkill, deleteUserSkill, getMySkills, getSkills } from "../controllers/skill.controller.js";
 
 export default {
     name: 'skillRoutes',
     register: async function (server) {
         server.route([
-            {
+            {//POST New Skills
                 method: 'POST',
                 path: '/skill',
                 options: {
@@ -17,12 +17,12 @@ export default {
                 },
                 handler: addSkill,
             },
-            {
+            {//GET All Skills
                 method: 'GET',
                 path: '/skill',
                 handler: getSkills,
             },
-            {
+            {// GET My Skills
                 method: 'GET',
                 path: '/skill/myskills',
                 options:{
@@ -30,7 +30,7 @@ export default {
                 },
                 handler: getMySkills,
             },
-            {
+            {// POST User Skill
                 method: 'POST',
                 path: '/skill/{skillId}',
                 options: {
@@ -43,6 +43,20 @@ export default {
                     },
                 },
                 handler: addUserSkill,
+            },
+            {// POST User Skill
+                method: 'DELETE',
+                path: '/skill/{skillId}',
+                options: {
+                    auth: 'jwt',
+                    validate: {
+                        // payload: registerSchema,
+                        failAction: (request, h, err) => {
+                            throw err;
+                        },
+                    },
+                },
+                handler: deleteUserSkill,
             },
         ]);
     },
