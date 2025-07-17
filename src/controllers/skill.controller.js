@@ -1,4 +1,4 @@
-import { createSkill, createUserSkill, findAllSkills } from "../services/skill.service.js";
+import { createSkill, createUserSkill, findAllSkills, findUserSkills } from "../services/skill.service.js";
 import { handleAsync } from "../utils/asyncHandler.js";
 
 
@@ -30,3 +30,11 @@ export const getSkills = handleAsync(async (request, h) => {
     skills
   }).code(200)
 });
+
+export const getMySkills = handleAsync(async(request, h)=>{
+  const skills = await findUserSkills(request.auth.credentials.id);
+  return h.response({
+    message:"Skills",
+    skills
+  })
+})

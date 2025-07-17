@@ -1,4 +1,4 @@
-import { addSkill, addUserSkill, getSkills } from "../controllers/skill.controller.js";
+import { addSkill, addUserSkill, getMySkills, getSkills } from "../controllers/skill.controller.js";
 
 export default {
     name: 'skillRoutes',
@@ -21,6 +21,14 @@ export default {
                 method: 'GET',
                 path: '/skill',
                 handler: getSkills,
+            },
+            {
+                method: 'GET',
+                path: '/skill/myskills',
+                options:{
+                    auth:'jwt'
+                },
+                handler: getMySkills,
             },
             {
                 method: 'POST',
