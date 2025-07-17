@@ -38,3 +38,4 @@ export const findUserSkills = async (id) => {
 
     return user.Skills;
 }
+
