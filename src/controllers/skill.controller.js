@@ -22,3 +22,11 @@ export const addUserSkill = handleAsync(async (request, h) => {
   }).code(201);
 });
 
+export const getSkills = handleAsync(async (request, h) => {
+  const skills = await findAllSkills();
+
+  return h.response({
+    message: "Skills",
+    skills
+  }).code(200)
+});
