@@ -44,7 +44,7 @@ export default {
                 },
                 handler: addUserSkill,
             },
-            {// POST User Skill
+            {// DELETE User Skill
                 method: 'DELETE',
                 path: '/skill/{skillId}',
                 options: {
