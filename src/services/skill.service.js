@@ -17,7 +17,7 @@ export const createSkill = async (name) => {
 }
 
 
-export const addUserSkill = async (userId, skillId) => {
+export const createUserSkill = async (userId, skillId) => {
     const existingUserSkill = await db.UserSkill.findOne({ where: { userId, skillId } });
     if (existingUserSkill) throw Boom.conflict("User already has this skill");
     
