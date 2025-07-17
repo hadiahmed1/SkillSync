@@ -3,6 +3,8 @@ export const handleAsync = (fn) => {
         try {
             return await fn(request, h);
         } catch (err) {
+            console.log(err);
+            
             if (err.isBoom) throw err;
             return h.response({
                 statusCode: err.statusCode || 400,
