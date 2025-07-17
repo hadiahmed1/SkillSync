@@ -32,10 +32,9 @@ export const findUserSkills = async (id) => {
     const user = await db.User.findByPk(id, {
         include: {
             model: db.Skill,
-            through: { attributes: [] },
+            through: { attributes: [] },//excluding UserSkill
         }
     })
 
     return user.Skills;
 }
-
