@@ -1,5 +1,9 @@
 import { addSkill, addUserSkill, deleteUserSkill, getMySkills, getSkills } from "../controllers/skill.controller.js";
-import { createSkillSchena } from "../validations/skill.validation.js";
+import { createSkillSchena, skillIdParamSchema } from "../validations/skill.validation.js";
+
+const failAction = (request, h, err) => {
+    throw err;
+}
 
 export default {
     name: 'skillRoutes',
@@ -11,9 +15,7 @@ export default {
                 options: {
                     validate: {
                         payload: createSkillSchena,
-                        failAction: (request, h, err) => {
-                            throw err;
-                        },
+                        failAction
                     },
                 },
                 handler: addSkill,
@@ -26,8 +28,8 @@ export default {
             {// GET My Skills
                 method: 'GET',
                 path: '/skill/myskills',
-                options:{
-                    auth:'jwt'
+                options: {
+                    auth: 'jwt'
                 },
                 handler: getMySkills,
             },
@@ -36,6 +38,10 @@ export default {
                 path: '/skill/{skillId}',
                 options: {
                     auth: 'jwt',
+                    validate: {
+                        params: skillIdParamSchema,
+                        failAction
+                    }
                 },
                 handler: addUserSkill,
             },
@@ -44,6 +50,10 @@ export default {
                 path: '/skill/{skillId}',
                 options: {
                     auth: 'jwt',
+                    validate: {
+                        params: skillIdParamSchema,
+                        failAction
+                    }
                 },
                 handler: deleteUserSkill,
             },
